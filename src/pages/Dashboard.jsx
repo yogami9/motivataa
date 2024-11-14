@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
     const [articles, setArticles] = useState([]);
@@ -8,7 +7,6 @@ const Dashboard = () => {
     const [podcasts, setPodcasts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-    const navigate = useNavigate();
 
     useEffect(() => {
         fetchContent();
@@ -31,10 +29,10 @@ const Dashboard = () => {
         }
     };
 
-    const renderContent = (content, type) => {
+    const renderContent = (content) => {
         return content.map((item) => (
             <div key={item._id} className="bg-white shadow-md rounded-lg overflow-hidden mb-4">
-                {item.thumbnail && <img src={item.thumbnail} alt={item.title} className="w-full h-48 object-cover" />} {/* Only display image if it exists */}
+                {item.thumbnail && <img src={item.thumbnail} alt={item.title} className="w-full h-48 object-cover" />}
                 <div className="p-4">
                     <h2 className="font-bold text-xl mb-2">{item.title}</h2>
                     <p className="text-gray-700">{item.description}</p>
@@ -53,21 +51,21 @@ const Dashboard = () => {
             <section className="mb-8">
                 <h2 className="text-2xl font-semibold mb-2">Articles</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {articles.length > 0 ? renderContent(articles, "Article") : <p>No articles available.</p>}
+                    {articles.length > 0 ? renderContent(articles) : <p>No articles available.</p>}
                 </div>
             </section>
 
             <section className="mb-8">
                 <h2 className="text-2xl font-semibold mb-2">Videos</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {videos.length > 0 ? renderContent(videos, "Video") : <p>No videos available.</p>}
+                    {videos.length > 0 ? renderContent(videos) : <p>No videos available.</p>}
                 </div>
             </section>
 
             <section className="mb-8">
                 <h2 className="text-2xl font-semibold mb-2">Podcasts</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {podcasts.length > 0 ? renderContent(podcasts, "Podcast") : <p>No podcasts available.</p>}
+                    {podcasts.length > 0 ? renderContent(podcasts) : <p>No podcasts available.</p>}
                 </div>
             </section>
         </div>
